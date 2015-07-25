@@ -62,18 +62,22 @@ public class JavaBeansSpELTestCase {
 
 		// validando apellido paterno
 		// TODO A) Generar una expresion que obtenga el apellido paterno
-		exp = parser.parseExpression("<poner expresion aqui>");
+		exp = parser.parseExpression("nombre.apellidoPaterno");
 		String apellidoPaterno = exp.getValue(context, String.class);
 		assertEquals("Juarez", apellidoPaterno);
 
 		exp = parser.parseExpression("nacionalidad.equals('Mexicana')");
 		Assert.assertTrue(exp.getValue(context, Boolean.class));
 
-		// TODO B) Escribir una expresión que compare la literal 'Mexicana' con el atributo
-		// nacionalidad pero ahora empleando el operador ==, validar el resultado con su aserción
+		// TODO B) Escribir una expresión que compare la literal 'Mexicana' con
+		// el atributo
+		// nacionalidad pero ahora empleando el operador ==, validar el
+		// resultado con su aserción
 		// correspondiente.
-		exp = parser.parseExpression("<poner expresion aqui>");
+		exp = parser.parseExpression("nacionalidad == 'Mexicana'");
 		// poner assert aqui.
+		// es true porque son literales las que se usan
+		Assert.assertTrue(exp.getValue(context, Boolean.class));
 	}
 
 	/**
@@ -95,21 +99,29 @@ public class JavaBeansSpELTestCase {
 		context = new StandardEvaluationContext(persona);
 		parser = new SpelExpressionParser();
 
-		// TODO C), generar una expresion para obtener el valor del atributo importe que corresponde
-		// al primer elemento de la lista. Manejar a la lista de ultimos gastos como si fuera un
+		// TODO C), generar una expresion para obtener el valor del atributo
+		// importe que corresponde
+		// al primer elemento de la lista. Manejar a la lista de ultimos gastos
+		// como si fuera un
 		// arreglo.
-		exp = parser.parseExpression("<poner expresión aquí>");
+		// para manejor colecciones
+		exp = parser.parseExpression("ultimosGastos[0].importe");
 
-		// TODO D) actualizar el valor de los gastos a 5500.54 empleando el métod setValue del
+		// TODO D) actualizar el valor de los gastos a 5500.54 empleando el
+		// métod setValue del
 		// objeto exp
 
-		assertEquals(new Double(persona.getUltimosGastos().get(0).getImporte()),
+		exp.setValue(context, "5500.54");
+
+		assertEquals(
+				new Double(persona.getUltimosGastos().get(0).getImporte()),
 				new Double(5500.54));
 	}
 
 	/**
-	 * Uso de SpelParserConfiguration, observar que ya no se requiere instanciar la colección ni
-	 * inicializarla a traves de las banderas autoGrowNullReferences y autoGrowCollections
+	 * Uso de SpelParserConfiguration, observar que ya no se requiere instanciar
+	 * la colección ni inicializarla a traves de las banderas
+	 * autoGrowNullReferences y autoGrowCollections
 	 */
 	@Test
 	public void parserConfigurationExample() {
@@ -121,8 +133,13 @@ public class JavaBeansSpELTestCase {
 
 		context = new StandardEvaluationContext(persona);
 
-		// TODO E) Agregar aqui la configuracion de SpelParserConfiguration (inicializar variable
+		// TODO E) Agregar aqui la configuracion de SpelParserConfiguration
+		// (inicializar variable
 		// config)
+
+		// para activar las colecciones o inicializarlos hacer que se
+		// autoinstancien y el segundo es que cresca
+		config = new SpelParserConfiguration(true, true);
 
 		parser = new SpelExpressionParser(config);
 		exp = parser.parseExpression("ultimosGastos[5].descripcion");
@@ -132,8 +149,8 @@ public class JavaBeansSpELTestCase {
 
 		Assert.assertEquals(persona.getUltimosGastos().get(5).getDescripcion(),
 				"gastos de vacaciones");
-		Assert.assertEquals(new Double(persona.getUltimosGastos().get(5).getImporte()),
-				new Double(19456.3));
+		Assert.assertEquals(new Double(persona.getUltimosGastos().get(5)
+				.getImporte()), new Double(19456.3));
 
 	}
 }
