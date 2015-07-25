@@ -26,10 +26,12 @@ public class ObjetosSpELTestCase {
 	/**
 	 * Logger para todas las instancias de la clase
 	 */
-	private static final Logger logger = LoggerFactory.getLogger(ObjetosSpELTestCase.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(ObjetosSpELTestCase.class);
 
 	/**
 	 * Creación y modificación de objetos.
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -37,37 +39,43 @@ public class ObjetosSpELTestCase {
 		ExpressionParser parser = new SpelExpressionParser();
 
 		// TODO, A) crear una expresion que genere on objeto Long con el valor 6
-		Expression exp = parser.parseExpression("<poner la expresión aquí>");
+		Expression exp = parser.parseExpression("new Long(6)");
 
 		assertTrue(exp.getValue() instanceof Long);
 		assertEquals(6L, exp.getValue());
 
-		// TODO, B) Crear una expresion que obtenga en número de bytes que ocupa la cadena
-		// 'SynergyJ'. Tip: invocar a getBytes de la clase String y obtener el tamaño del arreglo de
+		// TODO, B) Crear una expresion que obtenga en número de bytes que ocupa
+		// la cadena
+		// 'SynergyJ'. Tip: invocar a getBytes de la clase String y obtener el
+		// tamaño del arreglo de
 		// bytes.
-		exp = parser.parseExpression("<poner la expresión aquí>");
+		exp = parser.parseExpression("'SynergyJ'.bytes.length");
 		int numBytes = exp.getValue(Integer.class);
 
 		assertEquals("SynergyJ".getBytes().length, numBytes);
 
-		// TODO, C) Crear una expresion que obtenga un arreglo de caracteres a partir de la literal
+		// TODO, C) Crear una expresion que obtenga un arreglo de caracteres a
+		// partir de la literal
 		// 'SynergyJ'
-		exp = parser.parseExpression("<poner la expresión aquí>");
+		exp = parser.parseExpression("'SynergyJ'.toCharArray()");
 		char[] charArray = exp.getValue(char[].class);
 		assertEquals("SynergyJ", new String(charArray));
 	}
 
 	/**
 	 * Invocación de métos estaticos.
+	 * 
 	 * @throws Exception
 	 */
 	@Test
 	public void shouldInvoqueStaticMethods() throws Exception {
 		ExpressionParser parser = new SpelExpressionParser();
-		// TODO D), generar una expresion que invoque al método de clase random() de la clase Math
-		// para generar un número aleatorio entre 0 y 99, emplear el prefijo 'T' que indica el tipo,
+		// TODO D), generar una expresion que invoque al método de clase
+		// random() de la clase Math
+		// para generar un número aleatorio entre 0 y 99, emplear el prefijo 'T'
+		// que indica el tipo,
 		// en este caso la clase Math
-		Expression exp = parser.parseExpression("<poner la expresión aquí>");
+		Expression exp = parser.parseExpression("T(Math).random()*100");
 
 		int value = exp.getValue(int.class);
 		assertTrue(value >= 0 && value <= 99);

@@ -29,12 +29,20 @@ public class EcuacionTestCase {
 		Double x1 = 0.0, x2 = 0.0;
 
 		parser = new SpelExpressionParser();
+
+		// la ecuacion es x^2+10x+21
+
 		// para x1
 		// TODO, completar este test case para obtener X1
+
+		exp = parser.parseExpression("(10+T(Math).sqrt(10^2-(4*(1*21))))/2");
+		x1 = exp.getValue(Double.class);
 		Assert.assertEquals(new Double(7), x1);
 
 		// para x2
 		// TODO, completar este test case para obtener X2
+		exp = parser.parseExpression("(10-T(Math).sqrt(10^2-(4*(1*21))))/2");
+		x2 = exp.getValue(Double.class);
 		Assert.assertEquals(new Double(3), x2);
 
 	}
