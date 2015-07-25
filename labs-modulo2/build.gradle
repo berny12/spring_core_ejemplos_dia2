@@ -1,0 +1,25 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+sourceCompatibility = 1.7
+version = '0.0.1'
+
+def defaultEncoding = 'ISO-8859-1'
+compileJava { options.encoding = defaultEncoding }
+compileTestJava { options.encoding = defaultEncoding }
+
+repositories { mavenCentral() }
+
+dependencies {
+	compile 'org.springframework:spring-context:4.1.0.RELEASE'
+	compile 'org.slf4j:slf4j-api:1.7.7'  //empleo de SL4J
+
+	runtime 'org.slf4j:slf4j-log4j12:1.7.7' //uso de log4j
+	runtime 'org.slf4j:jcl-over-slf4j:1.7.7' //puente  java commons-logging con sl4j
+
+	testCompile group: 'junit', name: 'junit', version: '4.12-beta-2'
+	testCompile 'org.springframework:spring-test:4.1.0.RELEASE'
+	testCompile 'commons-beanutils:commons-beanutils:1.9.2'
+}
+
+configurations{ compile.exclude module: 'commons-logging' } //excluir commons-logging
