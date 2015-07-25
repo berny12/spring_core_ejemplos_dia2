@@ -12,17 +12,22 @@ import java.net.URL;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Jorge Rodríguez Campos (jorge.rodriguez@synergyj.com)
  */
 // TODO F) Anotar este Bean
+// estereotipar la clase
+@Component
 public class UserInfoAnotaciones {
 
 	// TODO G) inyectar el valor con el property user.username
+	@Value("#{settings['user.username']}")
 	private String username;
 
 	// TODO H) inyectar el valor con el property user.password
+	@Value("#settings{['user.password']}")
 	private String password;
 
 	@Value("#{settings['user.sitio.web']}")
@@ -112,13 +117,21 @@ public class UserInfoAnotaciones {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + edad;
-		result = prime * result + ((fechaLogin == null) ? 0 : fechaLogin.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((sistemaOperativo == null) ? 0 : sistemaOperativo.hashCode());
-		result = prime * result + ((sitioWeb == null) ? 0 : sitioWeb.hashCode());
-		result = prime * result + ((userHome == null) ? 0 : userHome.hashCode());
-		result = prime * result + ((username == null) ? 0 : username.hashCode());
-		result = prime * result + ((versionSO == null) ? 0 : versionSO.hashCode());
+		result = prime * result
+				+ ((fechaLogin == null) ? 0 : fechaLogin.hashCode());
+		result = prime * result
+				+ ((password == null) ? 0 : password.hashCode());
+		result = prime
+				* result
+				+ ((sistemaOperativo == null) ? 0 : sistemaOperativo.hashCode());
+		result = prime * result
+				+ ((sitioWeb == null) ? 0 : sitioWeb.hashCode());
+		result = prime * result
+				+ ((userHome == null) ? 0 : userHome.hashCode());
+		result = prime * result
+				+ ((username == null) ? 0 : username.hashCode());
+		result = prime * result
+				+ ((versionSO == null) ? 0 : versionSO.hashCode());
 		return result;
 	}
 

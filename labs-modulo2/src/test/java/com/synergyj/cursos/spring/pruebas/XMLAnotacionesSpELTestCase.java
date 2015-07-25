@@ -33,7 +33,8 @@ public class XMLAnotacionesSpELTestCase {
 	/**
 	 * Logger para todas las instancias de la clase
 	 */
-	private static final Logger logger = LoggerFactory.getLogger(XMLAnotacionesSpELTestCase.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(XMLAnotacionesSpELTestCase.class);
 
 	@Resource
 	private UserInfo userA;
@@ -41,11 +42,13 @@ public class XMLAnotacionesSpELTestCase {
 	@Resource
 	private UserInfo userB;
 
-	// TODO H) Inyectar la referencia de este bean.
+	// TODO I) Inyectar la referencia de este bean.
+	@Resource
 	private UserInfoAnotaciones userC;
 
 	@Test
-	public void userInfoExample() throws IllegalAccessException, InvocationTargetException {
+	public void userInfoExample() throws IllegalAccessException,
+			InvocationTargetException {
 		logger.debug("user A {}", userA);
 		logger.debug("user B {}", userB);
 		Assert.assertEquals(userA, userB);
@@ -53,6 +56,11 @@ public class XMLAnotacionesSpELTestCase {
 		Assert.assertNotNull(userC);
 		Assert.assertNotNull(userC.getUsername());
 		Assert.assertNotNull(userC.getPassword());
+	}
+
+	@Test
+	public void mytest() {
+
 	}
 
 }
