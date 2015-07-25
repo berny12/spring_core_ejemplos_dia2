@@ -5,6 +5,23 @@
 	<bean id="resources" class="com.synergyj.cursos.spring.beans.ResourceBean">
 		<!-- TODO, asignar el valor de todos los atributos del bean -->
 		
+		<property name="classpathPropertiesFile"  value="classpath:/javax/sql/rowset/rowset.properties"></property>
+		<!--  OTRAS SOLUCIONES
+		<property name="classpathPropertiesFile"  value="javax/sql/rowset/rowset.properties"></property>
+		<property name="classpathPropertiesFile"  value="/javax/sql/rowset/rowset.properties"></property>
+		-->
+		
+		<!-- BUSCA EL ARCHIVO EN LA RAIZ DEL CLASSPATH -->
+		<property name="expandedClasspathPropertiesFile" value="settings.properties"></property>
+		<!-- BUSCA EN EL SITIO WEB DE SYNERGYJ -->
+		<property name="webPage" value="http://www.synergyj.com/spring/index.html"></property>
+		<!-- BUSCAR EN EL FILE SYSTEM -->
+		<!-- las rutas relativas en java son desde el directorio donde se invoka el comando java en este caso es LABs-modulo2 -->
+		<property name="image" value="file:img/synergyj.jpg"></property>
+		<!--  
+		<property name="image" value="file:///pathAbsoluta/labs-modulo2/img/synergyj.jpg"></property>
+		-->
+		
 	</bean>
 
 </beans>

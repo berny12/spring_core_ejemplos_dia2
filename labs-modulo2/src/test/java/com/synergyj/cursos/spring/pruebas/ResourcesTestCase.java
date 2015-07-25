@@ -37,16 +37,19 @@ public class ResourcesTestCase {
 	/**
 	 * Logger para todas las instancias de la clase
 	 */
-	private static final Logger logger = LoggerFactory.getLogger(ResourcesTestCase.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(ResourcesTestCase.class);
 
 	@Resource
 	ResourceBean bean;
 
 	/**
-	 * A) TODO inyectar el atributo <code>classpathPropertiesFile</code> con un resource ubicado en
-	 * uno de los jars del JDK: /javax/sql/rowset/rowset.properties. Probar con y sin le prefijo
-	 * classpath para validar que el recurso se busca en el classpath ya que el appContext fue
-	 * creado via busqueda en classpath
+	 * A) TODO inyectar el atributo <code>classpathPropertiesFile</code> con un
+	 * resource ubicado en uno de los jars del JDK:
+	 * /javax/sql/rowset/rowset.properties. Probar con y sin le prefijo
+	 * classpath para validar que el recurso se busca en el classpath ya que el
+	 * appContext fue creado via busqueda en classpath
+	 * 
 	 * @throws IOException
 	 */
 	@Test
@@ -54,11 +57,13 @@ public class ResourcesTestCase {
 		ClassPathResource classPathResource;
 		Properties p;
 
-		classPathResource = (ClassPathResource) bean.getClasspathPropertiesFile();
+		classPathResource = (ClassPathResource) bean
+				.getClasspathPropertiesFile();
 
-		// B) TODO, ¿cuál de estas 2 líneas funciona sin problema?, Descomentar la correcta.
+		// B) TODO, ¿cuál de estas 2 líneas funciona sin problema?, Descomentar
+		// la correcta.
 		// logger.debug("File: {}", classPathResource.getFile());
-		// logger.debug("URL: {}", classPathResource.getURL());
+		logger.debug("URL: {}", classPathResource.getURL());
 
 		p = new Properties();
 		p.load(classPathResource.getInputStream());
@@ -66,15 +71,17 @@ public class ResourcesTestCase {
 		logger.debug("property file: {}", p);
 		logger.debug("salvando el archivo ");
 		File file = new File("bin", classPathResource.getFilename());
-		logger.debug("Ruta en donde guardara la informacion {}", file.getAbsolutePath());
+		logger.debug("Ruta en donde guardara la informacion {}",
+				file.getAbsolutePath());
 		FileOutputStream salida = new FileOutputStream(file);
 		FileCopyUtils.copy(classPathResource.getInputStream(), salida);
 	}
 
 	/**
-	 * C) TODO Inyectar el atributo <code>expandedClasspathPropertiesFile</code> con un resource que
-	 * se encuentra en el classpath en so forma expandida. El archivo está en
-	 * src/main/resources/settings.properties
+	 * C) TODO Inyectar el atributo <code>expandedClasspathPropertiesFile</code>
+	 * con un resource que se encuentra en el classpath en so forma expandida.
+	 * El archivo está en src/main/resources/settings.properties
+	 * 
 	 * @throws IOException
 	 */
 	@Test
@@ -82,11 +89,13 @@ public class ResourcesTestCase {
 		ClassPathResource classPathResource;
 		Properties p;
 
-		classPathResource = (ClassPathResource) bean.getExpandedClasspathPropertiesFile();
+		classPathResource = (ClassPathResource) bean
+				.getExpandedClasspathPropertiesFile();
 
-		// D) TODO, ¿cuál de estas 2 líneas funciona sin problema?, Descomentar la correcta.
-		// logger.debug("File: {}", classPathResource.getFile());
-		// logger.debug("URL: {}", classPathResource.getURL());
+		// D) TODO, ¿cuál de estas 2 líneas funciona sin problema?, Descomentar
+		// la correcta.
+		logger.debug("File: {}", classPathResource.getFile());
+		logger.debug("URL: {}", classPathResource.getURL());
 
 		p = new Properties();
 		p.load(classPathResource.getInputStream());
@@ -94,14 +103,16 @@ public class ResourcesTestCase {
 		logger.debug("property file: {}", p);
 		logger.debug("salvando el archivo ");
 		File file = new File("bin", classPathResource.getFilename());
-		logger.debug("Ruta en donde guardara la informacion {}", file.getAbsolutePath());
+		logger.debug("Ruta en donde guardara la informacion {}",
+				file.getAbsolutePath());
 		FileOutputStream salida = new FileOutputStream(file);
 		FileCopyUtils.copy(classPathResource.getInputStream(), salida);
 	}
 
 	/**
-	 * E) TODO Inyectar el atributo <code>webPage</code> con el siguiente recurso:
-	 * http://www.synergyj.com/spring/index.html
+	 * E) TODO Inyectar el atributo <code>webPage</code> con el siguiente
+	 * recurso: http://www.synergyj.com/spring/index.html
+	 * 
 	 * @throws IOException
 	 */
 	@Test
@@ -110,18 +121,20 @@ public class ResourcesTestCase {
 
 		urlResource = (UrlResource) bean.getWebPage();
 		String contenido;
-		contenido = new String(FileCopyUtils.copyToByteArray(urlResource.getInputStream()));
+		contenido = new String(FileCopyUtils.copyToByteArray(urlResource
+				.getInputStream()));
 		logger.debug("contenido de la pagina web: {}", contenido);
 		logger.debug("salvando archivo");
-		FileCopyUtils.copy(urlResource.getInputStream(),
-				new FileOutputStream(new File("bin", urlResource.getFilename())));
+		FileCopyUtils.copy(urlResource.getInputStream(), new FileOutputStream(
+				new File("bin", urlResource.getFilename())));
 	}
 
 	/**
-	 * TODO, inyectar el atributo <code>image</code> con la siguiente imágen que se encuentra en
-	 * labs-modulo2/img/synergyj.jpg. <br>
+	 * TODO, inyectar el atributo <code>image</code> con la siguiente imágen que
+	 * se encuentra en labs-modulo2/img/synergyj.jpg. <br>
 	 * F) emplear una ruta relativa. <br>
 	 * G) Emplear una ruta absoluta.
+	 * 
 	 * @throws IOException
 	 */
 	@Test
@@ -130,7 +143,7 @@ public class ResourcesTestCase {
 
 		fileResource = (UrlResource) bean.getImage();
 		logger.debug(" Salvando imagen: {}", fileResource.getURI());
-		FileCopyUtils.copy(fileResource.getInputStream(),
-				new FileOutputStream(new File("bin", fileResource.getFilename())));
+		FileCopyUtils.copy(fileResource.getInputStream(), new FileOutputStream(
+				new File("bin", fileResource.getFilename())));
 	}
 }
