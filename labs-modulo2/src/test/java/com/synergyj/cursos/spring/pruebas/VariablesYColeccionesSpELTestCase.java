@@ -56,16 +56,18 @@ public class VariablesYColeccionesSpELTestCase {
 		UserInfo userInfo;
 		parser = new SpelExpressionParser();
 
-		// TODO A) generar una expresión que regrese a todos los nombres que inicien con 'P'
-		exp = parser.parseExpression("<poner expresión aquí>");
+		// TODO A) generar una expresión que regrese a todos los nombres que
+		// inicien con 'P'
+		exp = parser.parseExpression("?[username.startsWith('P')]");
 
 		list = (List<UserInfo>) exp.getValue(userList);
 		logger.debug("Lista filtrada {}", list);
 		for (UserInfo user : list) {
 			Assert.assertTrue(user.getUsername().startsWith("P"));
 		}
-		// TODO B) generar una expresión que regrese el primer elemento que inicie con 'P'
-		exp = parser.parseExpression("<poner expresion aquí>");
+		// TODO B) generar una expresión que regrese el primer elemento que
+		// inicie con 'P'
+		exp = parser.parseExpression("^[username.startsWith('P')]");
 
 		userInfo = exp.getValue(userList, UserInfo.class);
 		logger.debug("El primer valor: {}", userInfo);
@@ -73,11 +75,12 @@ public class VariablesYColeccionesSpELTestCase {
 	}
 
 	/**
-	 * Este tescase hace uso de SpEL para construir un Map (directorio telefonico) y después a
-	 * través del uso de otra expresion, se obtiene otro Map pero solamente con los telefonos del
-	 * DF, osea que inician con 55. Se hace uso de variables, y de la variable #this, la cual apunta
-	 * al objeto actual (elemento del mapa) al que se le esta aplicando la expresion que esta entre
-	 * corchetes.
+	 * Este tescase hace uso de SpEL para construir un Map (directorio
+	 * telefonico) y después a través del uso de otra expresion, se obtiene otro
+	 * Map pero solamente con los telefonos del DF, osea que inician con 55. Se
+	 * hace uso de variables, y de la variable #this, la cual apunta al objeto
+	 * actual (elemento del mapa) al que se le esta aplicando la expresion que
+	 * esta entre corchetes.
 	 */
 	@SuppressWarnings("unchecked")
 	@Test
@@ -98,15 +101,17 @@ public class VariablesYColeccionesSpELTestCase {
 		context.setVariable("map", telephones);
 
 		// observar el uso de #this
-		exp = parser.parseExpression("#map.?[#this.getValue().startsWith('55')]");
+		exp = parser
+				.parseExpression("#map.?[#this.getValue().startsWith('55')]");
 		submap = exp.getValue(context, Map.class);
 
 		logger.debug("Telefonos del DF: {}", submap);
 		for (Entry<String, String> entry : submap.entrySet()) {
 			Assert.assertTrue(entry.getValue().startsWith("55"));
 		}
-		// TODO C) generar una expresion que obtenga los telefonos que sean de casa.
-		exp = parser.parseExpression("<poner expresión aquí>");
+		// TODO C) generar una expresion que obtenga los telefonos que sean de
+		// casa.
+		exp = parser.parseExpression("#map.?[#this.getKey().equals('casa')]");
 		submap = exp.getValue(context, Map.class);
 
 		logger.debug("Telefonos de casa: {}", submap);
